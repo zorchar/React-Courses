@@ -1,0 +1,9 @@
+.footer {
+    background: $myBlue;
+    width: 100vw;
+    height: 4rem;
+
+    a {
+        @extend %a-nav
+    }
+}
