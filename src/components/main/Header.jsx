@@ -10,11 +10,23 @@ const Header = () => {
         loginDispatch(logoutAction())
     }
 
+    const homeLink = { link: '' }
+    switch (loginState.isProfessor) {
+        case true:
+            homeLink.link = '/professors/'
+            break;
+        case false:
+            homeLink.link = '/students/'
+            break;
+        default:
+            homeLink.link = '/home'
+    }
+
     return (
         <div className="header">
             <div className="header__nav">
                 <NavLink
-                    to="/home"
+                    to={homeLink.link}
                     className={({ isActive }) => "home-nav" + (isActive ? ' header__active-link' : "")}
                 >Home</NavLink>
                 <div>
@@ -25,8 +37,8 @@ const Header = () => {
                         [
                             <NavLink
                                 key={1}
-                                to={(loginState.isProf ? "prof" : "student") + "/edit"}>
-                                Edit Self</NavLink>,
+                                to={(loginState.isProfessor ? "professors" : "students") + "/me"}>
+                                {loginState.user.email}</NavLink>,
                             <NavLink
                                 key={2}
                                 to="/home"

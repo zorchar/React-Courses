@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { LoginContext } from "../../../context/LoginContext";
-import AddStudentForm from "../../prof/AddStudentForm";
+import AddStudentForm from "../../professor/AddStudentForm";
 import Headline from "./Headline";
 
 const Home = () => {
@@ -8,8 +8,8 @@ const Home = () => {
 
     return (
         <>
-            <Headline />
-            {loginState.isProf && <AddStudentForm />}
+            {!loginState.user && <Headline />}
+            {loginState.isProfessor && <AddStudentForm />}
         </>
     )
 }

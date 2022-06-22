@@ -3,22 +3,22 @@ import bcrypt from 'bcryptjs'
 import { LoginContext } from "../../context/LoginContext";
 
 const ChangePassword = () => {
-    const { loginState, studentsDB, profsDB, setStudentsDB, setProfsDB } = useContext(LoginContext)
+    const { loginState, studentsDB, professorsDB, setStudentsDB, setProfessorsDB } = useContext(LoginContext)
     ////////////////////////////// change to a function
     let signedInUser
     let signedInUserIndex
     //let signedInUserId
     (() => {
-        for (let [i, prof] of profsDB.entries()) {
-            if (prof.email === loginState.user) {
-                signedInUser = prof
+        for (let [i, professor] of professorsDB.entries()) {
+            if (professor.email === loginState.user.email) {
+                signedInUser = professor
                 signedInUserIndex = i
                 //signedInUserId=_id
                 return
             }
         }
         for (let [i, student] of studentsDB.entries()) {
-            if (student.email === loginState.user) {
+            if (student.email === loginState.user.email) {
                 signedInUser = student
                 signedInUserIndex = i
                 return
@@ -28,10 +28,10 @@ const ChangePassword = () => {
     /////////////////////////////////////
 
     const setNewDBWithEditedUser = () => {
-        if (loginState.isProf) {
-            const newDB = profsDB
+        if (loginState.isProfessor) {
+            const newDB = professorsDB
             newDB[signedInUserIndex] = signedInUser
-            setProfsDB(newDB)
+            setProfessorsDB(newDB)
         }
         else {
             const newDB = studentsDB
@@ -66,7 +66,7 @@ const ChangePassword = () => {
     }
 
     return (
-        <form className="margin-top-4rem" onSubmit={onSubmitChangePassword}>
+        <form onSubmit={onSubmitChangePassword}>
             <input type="password" placeholder="Old Password" />
             <input type="password" placeholder="New Password" />
             <input type="password" placeholder="Retype New Password" />

@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import { LoginContext } from "../../context/LoginContext";
-import bcrypt from 'bcryptjs'
+import { createStudent } from "../../api/professorsAPI";
 
 const AddStudentForm = () => {
-    const { studentsDB, setStudentsDB } = useContext(LoginContext)
+    const { studentsDB } = useContext(LoginContext)
 
     useEffect(() => {
         console.log(studentsDB);
@@ -12,15 +12,19 @@ const AddStudentForm = () => {
     const onSubmitAddStudent = async (e) => {
         e.preventDefault()
 
-        const firstName = e.target.children[0].value.trim()
-        const lastName = e.target.children[1].value.trim()
-        const age = e.target.children[2].value.trim()
-        const email = e.target.children[3].value.trim()
-        const address = e.target.children[4].value.trim()
-        const password = await bcrypt.hash(e.target.children[5].value.trim(), 8)
-        setStudentsDB(studentsDB.concat({
-            firstName, lastName, age, email, address, password
-        }))
+        const newStudent = {
+            firstName: e.target.children[0].value.trim(),
+            lastName: e.target.children[1].value.trim(),
+            age: e.target.children[2].value.trim(),
+            email: e.target.children[3].value.trim(),
+            address: e.target.children[4].value.trim(),
+            password: e.target.children[5].value.trim()
+        }
+
+        createStudent(newStudent)
+        // setStudentsDB(studentsDB.concat({
+        //     firstName, lastName, age, email, address, password
+        // }))
     }
 
     return (
