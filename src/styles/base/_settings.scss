@@ -11,10 +11,27 @@ body {
     margin-top: 4rem;
 }
 
+input:disabled {
+    border: none;
+    background: transparent;
+}
+
 %centered-flex {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.flex-center {
+    @extend %centered-flex;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.space-around {
+    justify-content: space-around;
 }
 
 %a-nav {

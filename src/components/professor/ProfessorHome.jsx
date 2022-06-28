@@ -6,7 +6,7 @@ const ProfessorHome = () => {
         <>
             <div className="home-links">
                 <NavLink
-                    to="/professors/courses"
+                    to="/courses"
                 >Courses</NavLink>
                 <NavLink
                     to="/professors/students"

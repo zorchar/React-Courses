@@ -1,8 +1,15 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const StudentHome = () => {
     return (
-        <div></div>
+        <>
+            <div className="home-links">
+                <NavLink
+                    to="/courses"
+                >Courses</NavLink>
+            </div>
+        </>
     )
 }
 

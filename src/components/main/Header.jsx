@@ -37,8 +37,9 @@ const Header = () => {
                         [
                             <NavLink
                                 key={1}
-                                to={(loginState.isProfessor ? "professors" : "students") + "/me"}>
-                                {loginState.user.email}</NavLink>,
+                                to={(loginState.isProfessor ? "professors" : "students") + "/me"}
+                                className={({ isActive }) => isActive ? ' header__active-link' : ""}
+                            >{loginState.user.email}</NavLink>,
                             <NavLink
                                 key={2}
                                 to="/home"

@@ -5,7 +5,6 @@ import Home from './components/main/Home/Home';
 import PageNotFound from './components/main/PageNotFound';
 import LoginContextProvider from './context/LoginContext';
 import LoginForm from './components/main/login/LoginForm';
-import Me from './components/edit/Me';
 import PasswordReseted from './components/edit/PasswordReseted';
 import ChangePassword from './components/edit/ChangePassword';
 import CoursesContextProvider from './context/CoursesContext';
@@ -16,7 +15,8 @@ import Course from './components/professor/Course';
 import AddStudentForm from './components/professor/AddStudentForm';
 import Students from './components/professor/Students';
 import StudentHome from './components/student/StudentHome';
-import UserInformation from './components/UserInformation';
+import UserInformation from './components/UserInformation'
+import AddCoursePage from './components/professor/AddCoursePage';
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Navigate to="/home" replace />} />
-            <Route path="/professors/courses/:courseName" element={<Course />} />
+            <Route path="courses/:courseName" element={<Course />} />
             <Route path="/professors/" element={
               <ProtectedRoute>
                 <ProfessorHome />
@@ -47,16 +47,17 @@ function App() {
                 <AddStudentForm />
               </ProtectedRoute>
             } />
-            <Route path="/professors/courses" element={<Courses />} />
+            <Route path="/courses/add-course" element={< AddCoursePage />} />
+            <Route path="/courses" element={<Courses />} />
             <Route path="/students/" element={
               <ProtectedRoute>
                 <StudentHome />
               </ProtectedRoute>
             } />
-            <Route path="/professors/me" element={<Me />} />
+            <Route path="/professors/me" element={<UserInformation />} />
             <Route path="password-reseted" element={<PasswordReseted />} />
             <Route path="change-password" element={<ChangePassword />} />
-            <Route path="/students/me" element={<Me />} />
+            <Route path="/students/me" element={<UserInformation />} />
             <Route path="/home" element={
               <ProtectedRoute>
                 <Home />

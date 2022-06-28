@@ -8,11 +8,13 @@ export const loginReducer = (loginState, action) => {
         case 'LOGIN':
             newLoginState.user = action.user
             newLoginState.isProfessor = action.isProfessor
+            newLoginState.token = action.token
             localStorage.setItem('loginState', JSON.stringify(newLoginState))
             return newLoginState
         case 'LOGOUT':
             newLoginState.user = null
             newLoginState.isProfessor = null
+            newLoginState.token = null
             localStorage.removeItem('loginState')
             return newLoginState
         default:

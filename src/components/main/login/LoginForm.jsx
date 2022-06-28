@@ -2,11 +2,10 @@ import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginAction } from "../../../actions/loginActions";
 import { LoginContext } from "../../../context/LoginContext";
-import bcrypt from 'bcryptjs'
-import { getProfessor, getStudent } from '../../../api/professorsAPI'
+import { signInProfessor, signInStudent } from '../../../api/professorsAPI'
 
 const LoginForm = () => {
-    const { loginState, loginDispatch, studentsDB, professorsDB } = useContext(LoginContext)
+    const { loginState, loginDispatch } = useContext(LoginContext)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -20,47 +19,22 @@ const LoginForm = () => {
     const onSubmitLoginForm = async (e) => {
         e.preventDefault()
 
-        const email = e.target.children[0].value.trim()
-        const password = e.target.children[1].value.trim();
+        const email = e.target[0].value.trim()
+        const password = e.target[1].value.trim();
 
-        // for (let professor of professorsDB) {
-        //     if (professor.email === email && await bcrypt.compare(password, professor.password)) {
-        //         loginDispatch(loginAction({ user: professor.email, isProfessor: true }))
-        //         return
-        //     }
-        // }
-        // for (let student of studentsDB) {
-        //     if (student.email === email && await bcrypt.compare(password, student.password)) {
-        //         loginDispatch(loginAction({ user: student.email, isProfessor: false }))
-        //         return
-        //     }
-        // }
         (async () => {
-            let data //= await getStudent(email)
+            let data = await signInStudent(email, password)
             if (data) {
-                console.log(data);
-                return loginDispatch(loginAction({ user: data, isProfessor: false }))
+                localStorage.setItem('token', data.token)
+                return loginDispatch(loginAction({ user: data.user, isProfessor: false, token: data.token }))
             }
             else
-                data = await getProfessor(email)
-            if (data)
-                return loginDispatch(loginAction({ user: data, isProfessor: true }))
-
-        })()
-
-        // getStudent(email)
-        //     .then(data => {
-        //         // setUser(data)
-        //         if (data)
-        //             loginDispatch(loginAction({ user: data.email, isProfessor: false }))
-        //         else
-        //             getProfessor(email)
-        //                 .then(data => {
-        //                     // setUser(data)
-        //                     if (data)
-        //                         loginDispatch(loginAction({ user: data.email, isProfessor: false }))
-        //                 })
-        //     })
+                data = await signInProfessor(email, password)
+            if (data) {
+                localStorage.setItem('token', data.token)
+                return loginDispatch(loginAction({ user: data.user, isProfessor: true, token: data.token }))
+            }
+        })();
     }
     return (
         <>

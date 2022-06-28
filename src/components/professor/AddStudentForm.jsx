@@ -1,30 +1,27 @@
-import React, { useContext, useEffect } from "react";
-import { LoginContext } from "../../context/LoginContext";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { createStudent } from "../../api/professorsAPI";
+import { LoginContext } from "../../context/LoginContext";
 
 const AddStudentForm = () => {
-    const { studentsDB } = useContext(LoginContext)
-
-    useEffect(() => {
-        console.log(studentsDB);
-    }, [studentsDB])
+    const navigate = useNavigate()
+    const { loginState } = useContext(LoginContext)
 
     const onSubmitAddStudent = async (e) => {
         e.preventDefault()
 
         const newStudent = {
-            firstName: e.target.children[0].value.trim(),
-            lastName: e.target.children[1].value.trim(),
-            age: e.target.children[2].value.trim(),
-            email: e.target.children[3].value.trim(),
-            address: e.target.children[4].value.trim(),
-            password: e.target.children[5].value.trim()
+            firstName: e.target[0].value.trim(),
+            lastName: e.target[1].value.trim(),
+            age: e.target[2].value.trim(),
+            email: e.target[3].value.trim(),
+            address: e.target[4].value.trim(),
+            password: e.target[5].value.trim()
         }
 
-        createStudent(newStudent)
-        // setStudentsDB(studentsDB.concat({
-        //     firstName, lastName, age, email, address, password
-        // }))
+        const createdStudent = await createStudent(newStudent, loginState.token)
+        if (createdStudent)
+            navigate('/professors/students')
     }
 
     return (
