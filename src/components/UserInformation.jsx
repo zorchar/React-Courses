@@ -17,7 +17,9 @@ const UserInformation = () => {
     useEffect(() => {
         const asyncData = async () => {
             if (studentId) {
-                setQueriedUser(await getStudent(studentId, loginState.token))
+                const student = await getStudent(studentId, loginState.token)
+                console.log(student);
+                setQueriedUser(student)
             }
             else {
                 setQueriedUser(loginState.user)

@@ -1,33 +1,32 @@
 import React, { useContext } from "react";
-import { getCourses, registerForCourse } from "../../api/professorsAPI";
+import { getCourses, removeFromCourse } from "../../api/professorsAPI";
 import { CoursesContext } from "../../context/CoursesContext";
 import { LoginContext } from "../../context/LoginContext";
 
-const AddStudentToCourseForm = ({ course }) => {
+const RemoveStudentFromCourseForm = ({ course }) => {
     const { setCoursesDB, } = useContext(CoursesContext)
     const { loginState } = useContext(LoginContext)
 
-    const onSubmitAddStudentToCourse = async (e) => {
+    const onSubmitRemoveStudentFromCourse = async (e) => {
         e.preventDefault()
         try {
             const id = e.target[0].value.trim()
-
-            await registerForCourse(course[0]._id, id, loginState.token)
+            await removeFromCourse(course[0]._id, id, loginState.token)
             const courses = await getCourses()
             setCoursesDB(courses)
-        } catch {
-            alert('error in onClickAddStudentToCourse')
+        } catch (error) {
+            alert('error in onSubmitRemoveStudentFromCourse: ' + error)
         }
     }
 
     return (
         <>
-            <form onSubmit={onSubmitAddStudentToCourse}>
+            <form onSubmit={onSubmitRemoveStudentFromCourse}>
                 <input type="text" placeholder="Student ID" />
-                <button>Add Student To Course</button>
+                <button>Remove Student From Course</button>
             </form>
         </>
     )
 }
 
-export default AddStudentToCourseForm
+export default RemoveStudentFromCourseForm

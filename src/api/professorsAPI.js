@@ -71,16 +71,6 @@ export const getStudent = async (studentId, token) => {
     }
 }
 
-// no longer needed
-// export const getProfessor = async () => {
-//     try {
-//         const professor = await axios.get(url + 'professors/me')
-//         return professor.data.data
-//     } catch (error) {
-//         console.error(error.response.data.message)
-//     }
-// }
-
 export const signInProfessor = async (email, password) => {
     const article = {
         email,
@@ -162,9 +152,60 @@ export const registerForCourse = async (courseId, studentId, token) => {
         studentId
     };
     try {
-        const response = await axios.post(url + 'students/register', article, { headers })
+        const response = await axios.patch(url + 'students/register', article, { headers })
         return response.data.data
     } catch (error) {
         alert(error.response.data.message)
     }
 }
+
+export const createAbsence = async (courseId, studentId, token) => {
+    const headers = {
+        'Authorization': 'Bearer ' + token,
+    };
+    const article = {
+        courseId,
+        studentId
+    };
+    try {
+        const response = await axios.post(url + 'absences/create', article, { headers })
+        return response.data.data
+    } catch (error) {
+        alert(error.response.data.message)
+    }
+}
+
+export const removeFromCourse = async (courseId, studentId, token) => {
+    const headers = {
+        'Authorization': 'Bearer ' + token,
+    };
+    const article = {
+        courseId,
+        studentId
+    };
+    try {
+        const response = await axios.patch(url + 'students/unregister', article, { headers })
+        return response.data.data
+    } catch (error) {
+        alert(error.response.data.message)
+    }
+}
+
+export const deleteAbsence = async (courseId, studentId, token) => {
+    try {
+        const deletedCount = await axios.delete(url + 'absences/delete', {
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            },
+            data: {
+                courseId,
+                studentId
+            }
+        })
+        return deletedCount.data.data
+    } catch (error) {
+        throw (error.response.data.message)
+    }
+}
+
+//courses/general API

@@ -4,7 +4,6 @@ export const validateOnlyWholeNumbers = (input) => {
     const afterSplit = input.split(',')
     const afterTrim = afterSplit.map(el => el.trim())
     const afterRegex = afterTrim.filter(el => onlyWholePositiveNumbersRegex.test(el))
-    console.log(afterRegex);
 
     return afterRegex
 }
@@ -21,4 +20,3 @@ export const validateOnlyWholeNumbers = (input) => {
 //         return afterRegex
 //     else return input
 // }
-
