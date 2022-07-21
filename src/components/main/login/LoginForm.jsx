@@ -2,7 +2,10 @@ import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginAction } from "../../../actions/loginActions";
 import { LoginContext } from "../../../context/LoginContext";
-import { signInProfessor, signInStudent } from '../../../api/professorsAPI'
+import { signInProfessor } from '../../../api/professorsAPI'
+import SubmitButton from "../../general/SubmitButton";
+import { signInStudent } from "../../../api/studentAPI";
+import LabelAndInputInfo from "../../users/edit/LabelAndInputInfo";
 
 const LoginForm = () => {
     const { loginState, loginDispatch } = useContext(LoginContext)
@@ -39,9 +42,9 @@ const LoginForm = () => {
     return (
         <>
             <form onSubmit={onSubmitLoginForm}>
-                <input type="text" placeholder="Email" />
-                <input type="password" placeholder="Password" />
-                <button type="submit">Submit</button>
+                <LabelAndInputInfo data={{ isInputDisabledAttribute: false, queriedUser: [], paramString: 'Email', type: 'email' }} />
+                <LabelAndInputInfo data={{ isInputDisabledAttribute: false, queriedUser: [], paramString: 'Password', type: 'password' }} />
+                <SubmitButton />
             </form>
         </>
     )

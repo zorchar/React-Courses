@@ -1,0 +1,41 @@
+.course-info {
+    display: flex;
+    font-size: 2rem;
+    color: $myBlue;
+    margin: auto;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: center;
+
+    &>div,
+    label,
+    input {
+        font-weight: 600;
+        padding: 0.5rem 0;
+        // width: 100%;
+    }
+
+    input {
+        font-size: 2rem;
+        color: $myBlue;
+        margin-left: 1rem;
+    }
+}
+
+.width-75-percent {
+    width: 75%;
+    margin: auto;
+}
+
+.to-course-form {
+    display: flex;
+
+    button {
+        margin-left: 1rem;
+    }
+}
+
+.user-select-text {
+    user-select: text;
+    cursor: auto;
+}

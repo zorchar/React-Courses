@@ -24,9 +24,46 @@ input:disabled {
 
 .flex-center {
     @extend %centered-flex;
+    text-align: center;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.flex-around {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.flex-start-with-gap {
+    display: flex;
+    flex-wrap: wrap;
+
+    div {
+        margin: 0 20%;
+    }
+}
+
+.no-style {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+textarea {
+    resize: none;
 }
 
 .backdrop {
+    display: flex;
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -34,6 +71,8 @@ input:disabled {
     top: 0;
     left: 0;
     z-index: 2;
+    justify-content: center;
+    align-items: center;
 }
 
 .space-between {
@@ -48,4 +87,8 @@ input:disabled {
     text-decoration: none;
     color: white;
     margin: 0 1rem;
+}
+
+.my-blue {
+    color: $myBlue;
 }

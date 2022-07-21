@@ -1,5 +1,37 @@
 .backdrop {
+    &>div {
+        background: $myBlue;
+        width: 100%;
+        min-height: 50%;
+        border-radius: 10px;
+
+        &>div {
+            margin: 0 auto;
+            width: 70%;
+        }
+
+
+    }
+
+    .modal {
+        width: 70%;
+    }
+
     form {
-        background: #fc0f0f;
+        &>div {
+            margin: auto;
+            width: 70%;
+        }
+
+        .textarea-container {
+            margin: auto;
+            width: 70%;
+
+            textarea {
+                width: 100%;
+            }
+
+        }
+
     }
 }

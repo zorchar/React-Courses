@@ -2,21 +2,19 @@ import './styles/styles.scss'
 import Header from './components/main/Header';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Home from './components/main/Home/Home';
-import PageNotFound from './components/main/PageNotFound';
+import PageNotFound from './components/general/PageNotFound'
 import LoginContextProvider from './context/LoginContext';
 import LoginForm from './components/main/login/LoginForm';
-import PasswordReseted from './components/edit/PasswordReseted';
-import ChangePassword from './components/edit/ChangePassword';
 import CoursesContextProvider from './context/CoursesContext';
-import ProfessorHome from './components/professor/ProfessorHome';
-import ProtectedRoute from './components/ProtectedRoute';
-import Courses from './components/professor/Courses';
-import Course from './components/professor/Course';
-import AddStudentForm from './components/professor/AddStudentForm';
-import Students from './components/professor/Students';
-import StudentHome from './components/student/StudentHome';
-import UserInformation from './components/UserInformation'
-import AddCoursePage from './components/professor/AddCoursePage';
+import ProtectedRoute from './components/general/ProtectedRoute';
+import Courses from './components/courses/Courses';
+import Course from './components/courses/course/Course';
+import AddStudentForm from './components/users/professor/AddStudentForm';
+import Students from './components/users/professor/Students';
+import UserInformation from './components/users/UserInformation';
+import AddCoursePage from './components/courses/AddCoursePage';
+import UserHome from './components/users/UserHome';
+import CourseStudents from './components/courses/course/CourseStudents';
 
 function App() {
   return (
@@ -29,13 +27,16 @@ function App() {
             <Route path="courses/:courseName" element={<Course />} />
             <Route path="/professors/" element={
               <ProtectedRoute>
-                <ProfessorHome />
+                <UserHome />
               </ProtectedRoute>
             } />
             <Route path="/professors/students" element={
               <ProtectedRoute>
                 <Students />
               </ProtectedRoute>
+            } />
+            <Route path="/courses/:courseName/students" element={
+              <CourseStudents />
             } />
             <Route path="/professors/students/:studentId" element={
               <ProtectedRoute>
@@ -51,12 +52,10 @@ function App() {
             <Route path="/courses" element={<Courses />} />
             <Route path="/students/" element={
               <ProtectedRoute>
-                <StudentHome />
+                <UserHome />
               </ProtectedRoute>
             } />
             <Route path="/professors/me" element={<UserInformation />} />
-            <Route path="password-reseted" element={<PasswordReseted />} />
-            <Route path="change-password" element={<ChangePassword />} />
             <Route path="/students/me" element={<UserInformation />} />
             <Route path="/home" element={
               <ProtectedRoute>

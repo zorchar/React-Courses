@@ -2,7 +2,7 @@ import React from "react";
 
 const Loader = () => {
     return (
-        <h1 className="flex-center">Loading...</h1>
+        <h1 className="flex-center my-blue">Loading...</h1>
     )
 }
 

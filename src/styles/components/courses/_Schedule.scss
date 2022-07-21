@@ -1,0 +1,53 @@
+.schedule {
+    display: grid;
+    // grid-template-rows: repeat(auto-fill, minmax(70px, auto));
+    grid-auto-rows: minmax(70px, auto);
+    grid-template-columns: repeat(auto-fill, minmax(70px, auto));
+    margin: auto;
+    border: 6px solid $myBlue;
+    background: $myBlue ;
+    border-radius: 10px;
+    gap: 2px;
+
+
+    .grid-cell {
+        color: $myBlue;
+        margin: 0;
+        display: flex;
+        @extend %centered-flex;
+        text-align: center;
+        background: white;
+        border-radius: 5px;
+        user-select: none;
+        min-width: 0;
+        transition: min-width 2s, transform 2s; //needs absolute width?
+
+        &:hover {
+            cursor: pointer;
+            background: hsla(208, 16%, 85%, 0.802);
+        }
+
+        &:active {
+            background: hsla(208, 16%, 85%, 0.502);
+        }
+    }
+
+    .background-gray {
+        background: #808080;
+    }
+
+    .background-red {
+        background: #ff0000;
+    }
+
+    .clicked {
+        top: 40%;
+        min-width: 70%;
+        height: 50%;
+        transform: translate(6%, -30%);
+        background: hsla(208, 16%, 85%, 0.502);
+        position: fixed;
+        font-size: 5vw;
+    }
+
+}

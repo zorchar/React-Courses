@@ -7,6 +7,9 @@ export const CoursesContext = createContext()
 const CoursesContextProvider = (props) => {
     const [coursesDB, setCoursesDB] = useState(null)
     const { loginState } = useContext(LoginContext)
+    const [course, setCourse] = useState(null)
+    const [classDate, setClassDate] = useState(null)
+    const [lastClickedClass, setLastClickedClass] = useState([])
 
     useEffect(() => {
         const asyncData = async () => {
@@ -15,11 +18,11 @@ const CoursesContextProvider = (props) => {
                 setCoursesDB(courses)
             }
         }
-        asyncData().catch()
+        asyncData()
     }, [setCoursesDB, loginState])
 
     return (
-        <CoursesContext.Provider value={{ coursesDB, setCoursesDB }}>
+        <CoursesContext.Provider value={{ coursesDB, setCoursesDB, course, setCourse, classDate, setClassDate, lastClickedClass, setLastClickedClass }}>
             {props.children}
         </CoursesContext.Provider>
     )

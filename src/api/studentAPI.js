@@ -2,14 +2,51 @@ import axios from 'axios'
 
 const url = 'http://localhost:4000/'
 
-export const addReasonToAbsence = async (body, token) => {
+export const addReasonToAbsence = async (reason, token) => {
     const headers = {
         'Authorization': 'Bearer ' + token,
     };
     try {
-        const course = await axios.patch(url + 'absences/add-reason', body, { headers })
+        const course = await axios.patch(url + 'absences/add-reason', reason, { headers })
         return course.data.data
     } catch (error) {
         alert(error.response.data.message)
+    }
+}
+
+export const getReasonFromAbsence = async (reason, token) => {
+    const headers = {
+        'Authorization': 'Bearer ' + token,
+    };
+    try {
+        const response = await axios.put(url + 'absences/get-reason', reason, { headers })
+        return response.data.data
+    } catch (error) {
+        alert(error.response.data.message)
+    }
+}
+
+export const patchStudent = async (body, token) => {
+    const headers = {
+        'Authorization': 'Bearer ' + token,
+    };
+    try {
+        const response = await axios.patch(url + 'students/me', body, { headers })
+        return response.data.data
+    } catch (error) {
+        console.error(error.response.data.message)
+    }
+}
+
+export const signInStudent = async (email, password) => {
+    const article = {
+        email,
+        password
+    };
+    try {
+        const student = await axios.post(url + 'students/signin', article)
+        return student.data.data
+    } catch (error) {
+        console.error(error.response.data.message)
     }
 }
