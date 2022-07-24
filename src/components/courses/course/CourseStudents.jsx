@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { CoursesContext } from '../../../context/CoursesContext'
-import studentIcon from '../../../icons/student-male.png'
+import studentIcon from '../../../assets/icons/student-male.png'
 import AddStudentToCourseForm from './AddStudentToCourseForm'
 import RemoveStudentFromCourseForm from './RemoveStudentFromCourseForm'
 

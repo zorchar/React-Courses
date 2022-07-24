@@ -19,9 +19,9 @@ const LabelAndInputInfo = ({ data }) => {
 
 
     return (
-        <div className="course-info">
+        <div className="course-info flex-between">
             <label htmlFor={paramStringNoSpaces}>{paramString}: </label><br></br>
-            <input type={type} ref={textInput} onChange={onChangeControlInputWidth} size={valueLength} disabled={isInputDisabledAttribute} id={paramStringNoSpaces} name={paramStringKeyName} placeholder={paramString} defaultValue={queriedUser[paramStringKeyName]} />
+            <input type={type} ref={textInput} onChange={onChangeControlInputWidth} size={valueLength !== 0 ? valueLength : 7} disabled={isInputDisabledAttribute} id={paramStringNoSpaces} name={paramStringKeyName} placeholder={paramString} defaultValue={queriedUser[paramStringKeyName]} />
         </div>
 
     )

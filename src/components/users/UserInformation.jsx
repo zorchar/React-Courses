@@ -5,7 +5,7 @@ import { deleteStudent, getStudent, patchProfessor } from "../../api/professorsA
 import { LoginContext } from "../../context/LoginContext";
 import EditInfoForm from '../users/edit/EditInfoForm';
 import Loader from '../general/Loader'
-import deleteStudentIcon from '../../icons/delete-student.png'
+import deleteStudentIcon from '../../assets/icons/delete-student.png'
 import { patchStudent } from "../../api/studentAPI";
 
 const UserInformation = () => {
@@ -33,10 +33,8 @@ const UserInformation = () => {
     const onSubmitEdit = async (e) => {
         e.preventDefault()
 
-        setIsInputDisabledAttribute(true)
-
-        const form = new FormData(e.target)
         const patchFunc = loginState.isProfessor ? patchProfessor : patchStudent
+        const form = new FormData(e.target)
 
         const patchedUser = await patchFunc(
             {
@@ -48,6 +46,8 @@ const UserInformation = () => {
         if (patchedUser) {
             loginDispatch(loginAction({ user: patchedUser, isProfessor: loginState.isProfessor, token: loginState.token }))
         }
+
+        setIsInputDisabledAttribute(true)
     }
 
     const onClickToggleDisabledAttribute = () => {

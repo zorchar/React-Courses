@@ -5,7 +5,7 @@ const Schedule = ({ value, onClickClass }) => {
     const { setLastClickedClass } = useContext(CoursesContext)
 
     const addClickedClassToCell = (e) => {
-        e.target.className = e.target.className.concat(' clicked')
+        // e.target.className = e.target.className.concat(' clicked')
         setLastClickedClass(e.target)
     }
 

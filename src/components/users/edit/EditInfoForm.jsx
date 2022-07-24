@@ -1,7 +1,7 @@
 import React from "react";
 import LabelAndInputInfo from "./LabelAndInputInfo";
 import SubmitButton from "../../general/SubmitButton";
-import editButton from '../../../icons/edit.png'
+import editButton from '../../../assets/icons/edit.png'
 
 const EditInfoForm = ({ data }) => {
     const { onSubmitEdit, isMyInfo, onClickToggleDisabledAttribute, isInputDisabledAttribute } = data

@@ -1,6 +1,6 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import studentIcon from '../../../icons/student-male.png'
+import { Link } from "react-router-dom";
+import studentIcon from '../../../assets/icons/student-male.png'
 
 const StudentsList = ({ students }) => {
     return (
@@ -8,10 +8,10 @@ const StudentsList = ({ students }) => {
             {students.map((student) => {
                 return (
                     <div key={student._id}>
-                        <NavLink className='courses-link' to={student._id} >
+                        <Link className='courses-link' to={student._id} >
                             <img src={studentIcon} alt="none" className="icon-container" />
                             {student.firstName}  {student.lastName}<br />
-                        </NavLink>
+                        </Link>
                     </div>
                 )
             })}

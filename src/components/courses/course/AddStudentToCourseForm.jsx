@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { getCourses, registerForCourse } from "../../../api/professorsAPI";
 import { CoursesContext } from "../../../context/CoursesContext";
 import { LoginContext } from "../../../context/LoginContext";
-import addStudentIcon from '../../../icons/add-student.png'
+import addStudentIcon from '../../../assets/icons/add-student.png'
 
 const AddStudentToCourseForm = ({ course }) => {
     const { setCoursesDB, } = useContext(CoursesContext)

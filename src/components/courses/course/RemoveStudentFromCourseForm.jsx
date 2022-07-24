@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { getCourses, removeFromCourse } from "../../../api/professorsAPI";
 import { CoursesContext } from "../../../context/CoursesContext";
 import { LoginContext } from "../../../context/LoginContext";
-import deleteStudentIcon from '../../../icons/delete-student.png'
+import deleteStudentIcon from '../../../assets/icons/delete-student.png'
 
 const RemoveStudentFromCourseForm = ({ course }) => {
     const { setCoursesDB, } = useContext(CoursesContext)

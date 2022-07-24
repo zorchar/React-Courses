@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams, useNavigate, NavLink } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { deleteCourse, getAbsencesOfDateAndCourse, getCourses } from "../../../api/professorsAPI";
 import { CoursesContext } from "../../../context/CoursesContext";
 import { LoginContext } from "../../../context/LoginContext";
@@ -7,11 +7,11 @@ import Schedule from "./Schedule";
 import Loader from '../../general/Loader'
 import BackdropClassModal from './class/BackdropClassModal'
 import CourseInfo from "./CourseInfo";
-import deleteCourseIcon from '../../../icons/delete-course.png';
-import studentsIcon from '../../../icons/students-icon.png';
+import studentsIcon from '../../../assets/icons/students-icon.png';
 import ClassModal from "./class/ClassModal";
 import AbsenceForm from "./class/absence/AbsenceForm";
 import AbsentStudents from "./class/AbsentStudents";
+import DeleteCourseButton from "./DeleteCourseButton";
 
 const Course = () => {
     const { courseName } = useParams()
@@ -52,10 +52,8 @@ const Course = () => {
             return { student: absence.student, reason: reasonsArray[0].reason }
         }))
 
-        setTimeout(() => {
-            setClassDate(date)
-            setIsClassModalShown(true)
-        }, 2000);
+        setClassDate(date)
+        setIsClassModalShown(true)
     }
 
     useEffect(() => {
@@ -71,14 +69,11 @@ const Course = () => {
             <Schedule value={course.schedule} onClickClass={onClickClass} />
             {loginState.isProfessor &&
                 <div className="flex-between">
-                    <NavLink className='courses-link' to='students' >
+                    <Link className='courses-link' to='students' >
                         <img src={studentsIcon} alt="none" className="icon-container" />
                         Students
-                    </NavLink>
-                    <div className='courses-link remove' onClick={onClickDeleteCourse} >
-                        <img src={deleteCourseIcon} alt="none" className="icon-container" />
-                        Delete Course
-                    </div>
+                    </Link>
+                    <DeleteCourseButton onClickDeleteCourse={onClickDeleteCourse} />
                 </div>
             }
             {isClassModalShown &&
