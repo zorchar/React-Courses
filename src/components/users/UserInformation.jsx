@@ -5,8 +5,10 @@ import { deleteStudent, getStudent, patchProfessor } from "../../api/professorsA
 import { LoginContext } from "../../context/LoginContext";
 import EditInfoForm from '../users/edit/EditInfoForm';
 import Loader from '../general/Loader'
-import deleteStudentIcon from '../../assets/icons/delete-student.png'
 import { patchStudent } from "../../api/studentAPI";
+import EditButton from "../general/EditButton";
+import SubmitButton from "../general/SubmitButton";
+import DeleteStudentButton from "../general/DeleteStudentButton";
 
 const UserInformation = () => {
     const navigate = useNavigate()
@@ -64,12 +66,13 @@ const UserInformation = () => {
     return (
         queriedUser ?
             <>
-                <EditInfoForm data={{ isMyInfo, isInputDisabledAttribute, onSubmitEdit, queriedUser, onClickToggleDisabledAttribute }} />
-                {!isMyInfo && <div className='courses-link remove' onClick={onClickDeleteStudent} >
-                    <img src={deleteStudentIcon} alt="none" className="icon-container" />
-                    Delete Student
-                </div>
-                }
+                <EditInfoForm data={{ isMyInfo, isInputDisabledAttribute, onSubmitEdit, queriedUser, onClickToggleDisabledAttribute }} >
+                    {isMyInfo && <div className="flex-start-with-gap">
+                        <EditButton onClickHandler={onClickToggleDisabledAttribute} />
+                        {!isInputDisabledAttribute && <SubmitButton />}
+                    </div>}
+                </EditInfoForm>
+                {!isMyInfo && <DeleteStudentButton onClickHandler={onClickDeleteStudent} />}
             </> :
             <Loader />
     )

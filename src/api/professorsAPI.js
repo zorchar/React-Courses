@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const url = 'http://localhost:4000/'
 
+
 export const createStudent = async (newStudent, token) => {
     const headers = {
         'Authorization': 'Bearer ' + token,
@@ -48,12 +49,12 @@ export const getStudent = async (studentId, token) => {
 }
 
 export const signInProfessor = async (email, password) => {
-    const article = {
+    const body = {
         email,
         password
     };
     try {
-        const professor = await axios.post(url + 'professors/signin', article)
+        const professor = await axios.post(url + 'professors/signin', body)
         return professor.data.data
     } catch (error) {
         console.error(error.response.data.message)

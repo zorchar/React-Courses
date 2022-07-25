@@ -41,7 +41,7 @@ const LoginForm = () => {
     }
     return (
         <>
-            <form className="width70" onSubmit={onSubmitLoginForm}>
+            <form className="center-width" onSubmit={onSubmitLoginForm}>
                 <LabelAndInputInfo data={{ isInputDisabledAttribute: false, queriedUser: [], paramString: 'Email', type: 'email' }} />
                 <LabelAndInputInfo data={{ isInputDisabledAttribute: false, queriedUser: [], paramString: 'Password', type: 'password' }} />
                 <SubmitButton />

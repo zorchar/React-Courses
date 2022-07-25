@@ -11,7 +11,8 @@ import Courses from './components/courses/Courses';
 import Course from './components/courses/course/Course';
 import AddStudentForm from './components/users/professor/AddStudentForm';
 import Students from './components/users/professor/Students';
-import UserInformation from './components/users/UserInformation';
+import MyInformation from './components/users/MyInformation';
+import StudentInformation from './components/users/StudentInformation';
 import AddCoursePage from './components/courses/AddCoursePage';
 import UserHome from './components/users/UserHome';
 import CourseStudents from './components/courses/course/CourseStudents';
@@ -40,7 +41,7 @@ function App() {
             } />
             <Route path="/professors/students/:studentId" element={
               <ProtectedRoute>
-                <UserInformation />
+                <StudentInformation />
               </ProtectedRoute>
             } />
             <Route path="/professors/students/add-student" element={
@@ -55,8 +56,8 @@ function App() {
                 <UserHome />
               </ProtectedRoute>
             } />
-            <Route path="/professors/me" element={<UserInformation />} />
-            <Route path="/students/me" element={<UserInformation />} />
+            <Route path="/professors/me" element={<MyInformation />} />
+            <Route path="/students/me" element={<MyInformation />} />
             <Route path="/home" element={
               <ProtectedRoute>
                 <Home />

@@ -16,10 +16,8 @@ const LabelAndInputInfo = ({ data }) => {
         setValueLength(textInput.current.value.length)
     }, [textInput])
 
-
-
     return (
-        <div className="course-info flex-between">
+        <div className="course-info">
             <label htmlFor={paramStringNoSpaces}>{paramString}: </label><br></br>
             <input type={type} ref={textInput} onChange={onChangeControlInputWidth} size={valueLength !== 0 ? valueLength : 7} disabled={isInputDisabledAttribute} id={paramStringNoSpaces} name={paramStringKeyName} placeholder={paramString} defaultValue={queriedUser[paramStringKeyName]} />
         </div>

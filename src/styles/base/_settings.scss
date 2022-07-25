@@ -83,9 +83,11 @@ textarea {
     justify-content: space-around;
 }
 
-.width70 {
-    width: 70vw;
-    margin: auto;
+.center-width {
+    position: absolute;
+    left: 50%;
+    top: 4rem;
+    transform: translate(-50%, 0%);
 }
 
 %a-nav {
