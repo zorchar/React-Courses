@@ -1,21 +1,19 @@
-import React from "react";
-import { useMemo } from "react";
-import { useEffect } from "react";
-import { useContext } from "react";
-import { useState } from "react";
+import React, { useMemo, useEffect, useContext, useState } from "react";
 import { addReasonToAbsence, getReasonFromAbsence } from "../../../../../api/studentAPI";
 import { CoursesContext } from "../../../../../context/CoursesContext";
 import { LoginContext } from "../../../../../context/LoginContext";
+import { ModalContext } from "../../../../../context/ModalContext";
 import SubmitButton from "../../../../general/SubmitButton";
 import AbsenceFormTextArea from "./AbsenceFormTextArea";
 import YesNoRadio from "./YesNoRadio";
 
-const AbsenceForm = ({ setIsClassModalShown }) => {
+const AbsenceForm = () => {
     const [isAttended, setIsAttended] = useState(false)
     const [explanation, setExplanation] = useState(null)
     const { loginState } = useContext(LoginContext)
     const { classDate, course } = useContext(CoursesContext)
     const { lastClickedClass } = useContext(CoursesContext)
+    const { setIsModalShown } = useContext(ModalContext)
 
     const reason = useMemo(() => ({
         courseId: course._id,
@@ -32,7 +30,7 @@ const AbsenceForm = ({ setIsClassModalShown }) => {
 
             await addReasonToAbsence(reason, loginState.token)
             alert(isAttended ? 'Status: Attended' : 'Reason added to absence')
-            setIsClassModalShown(false)
+            setIsModalShown(false)
             lastClickedClass.className = lastClickedClass.className.replace('clicked', '')
         } catch (error) {
             alert('Error in onSubmitAbsenceForm' + error)

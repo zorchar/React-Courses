@@ -4,7 +4,7 @@ import { LoginContext } from "./LoginContext";
 
 export const CoursesContext = createContext()
 
-const CoursesContextProvider = (props) => {
+const CoursesContextProvider = ({ children }) => {
     const [coursesDB, setCoursesDB] = useState(null)
     const { loginState } = useContext(LoginContext)
     const [course, setCourse] = useState(null)
@@ -23,7 +23,7 @@ const CoursesContextProvider = (props) => {
 
     return (
         <CoursesContext.Provider value={{ coursesDB, setCoursesDB, course, setCourse, classDate, setClassDate, lastClickedClass, setLastClickedClass }}>
-            {props.children}
+            {children}
         </CoursesContext.Provider>
     )
 }

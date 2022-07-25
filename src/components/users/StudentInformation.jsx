@@ -13,12 +13,17 @@ const StudentInformation = () => {
     const [isInputDisabledAttribute] = useState(true)
 
     useEffect(() => {
-        const asyncData = async () => {
-            const student = await getStudent(studentId, loginState.token)
-            setQueriedUser(student)
+        const getAndSetQueriedUser = async () => {
+            try {
+                const student = await getStudent(studentId, loginState.token)
+                setQueriedUser(student)
+            } catch (err) {
+                alert('No student found. Error: ' + err)
+            }
         }
-        asyncData()
-    }, [loginState, studentId])
+
+        getAndSetQueriedUser()
+    }, [])
 
 
     return (

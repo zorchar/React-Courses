@@ -1,6 +1,7 @@
 import studentIcon from '../../../../assets/icons/student-male.png'
 
 const AbsentStudents = ({ absentStudents }) => {
+    console.log(absentStudents)
     return (absentStudents.length > 0 &&
         <div className='flex-column-center'>Students who were absent:<br /><br />
             {absentStudents.map((student) => {
