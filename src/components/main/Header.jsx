@@ -13,10 +13,10 @@ const Header = () => {
     const homeLink = { link: '' }
     switch (loginState.isProfessor) {
         case true:
-            homeLink.link = '/professors/'
+            homeLink.link = '/professors/home'
             break;
         case false:
-            homeLink.link = '/students/'
+            homeLink.link = '/students/home'
             break;
         default:
             homeLink.link = '/home'

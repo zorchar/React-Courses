@@ -8,8 +8,8 @@ const CoursesContextProvider = ({ children }) => {
     const [coursesDB, setCoursesDB] = useState(null)
     const { loginState } = useContext(LoginContext)
     const [course, setCourse] = useState(null)
-    const [classDate, setClassDate] = useState(null)
     const [lastClickedClass, setLastClickedClass] = useState([])
+    const [classDate, setClassDate] = useState(null)
 
     useEffect(() => {
         const asyncData = async () => {
@@ -19,10 +19,10 @@ const CoursesContextProvider = ({ children }) => {
             }
         }
         asyncData()
-    }, [setCoursesDB, loginState])
+    }, [loginState])
 
     return (
-        <CoursesContext.Provider value={{ coursesDB, setCoursesDB, course, setCourse, classDate, setClassDate, lastClickedClass, setLastClickedClass }}>
+        <CoursesContext.Provider value={{ coursesDB, setCoursesDB, course, setCourse, lastClickedClass, setLastClickedClass, classDate, setClassDate }}>
             {children}
         </CoursesContext.Provider>
     )

@@ -12,7 +12,6 @@ const AbsenceForm = () => {
     const [explanation, setExplanation] = useState(null)
     const { loginState } = useContext(LoginContext)
     const { classDate, course } = useContext(CoursesContext)
-    const { lastClickedClass } = useContext(CoursesContext)
     const { setIsModalShown } = useContext(ModalContext)
 
     const reason = useMemo(() => ({
@@ -31,7 +30,6 @@ const AbsenceForm = () => {
             await addReasonToAbsence(reason, loginState.token)
             alert(isAttended ? 'Status: Attended' : 'Reason added to absence')
             setIsModalShown(false)
-            lastClickedClass.className = lastClickedClass.className.replace('clicked', '')
         } catch (error) {
             alert('Error in onSubmitAbsenceForm' + error)
         }
@@ -40,7 +38,6 @@ const AbsenceForm = () => {
 
     useEffect(() => {
         const getExplanation = async () => {
-
             const absenceStatus = await getReasonFromAbsence(reason, loginState.token)
             setExplanation(absenceStatus.reason)
             setIsAttended(absenceStatus.isAttended)

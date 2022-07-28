@@ -1,9 +1,9 @@
 .modal {
+    position: relative;
     color: $myYellow;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    // align-items: center;
     width: 70%;
     overflow-wrap: anywhere;
 
@@ -15,5 +15,32 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    .close-button {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 2rem;
+        height: 2rem;
+        margin: 1rem;
+        border: 5px solid $myYellow;
+        border-radius: 10px;
+        font-size: 1rem;
+        text-align: center;
+        font-weight: 900;
+        user-select: none;
+
+        &:hover {
+            color: #d6a32e;
+            border-color: #d6a32e;
+            cursor: pointer;
+        }
+
+        &:active {
+            color: #7c5907;
+            border-color: #7c5907;
+            cursor: pointer;
+        }
     }
 }

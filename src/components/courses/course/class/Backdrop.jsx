@@ -1,6 +1,6 @@
 import React from "react";
 
-const BackdropClassModal = ({ setIsBackdropShown, children }) => {
+const Backdrop = ({ setIsBackdropShown, children }) => {
     const onClickContainer = (e) => {
         if (e.target === e.currentTarget) {
             setIsBackdropShown(false)
@@ -13,4 +13,4 @@ const BackdropClassModal = ({ setIsBackdropShown, children }) => {
     )
 }
 
-export default BackdropClassModal
+export default Backdrop

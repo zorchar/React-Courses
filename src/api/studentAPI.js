@@ -39,12 +39,12 @@ export const patchStudent = async (body, token) => {
 }
 
 export const signInStudent = async (email, password) => {
-    const article = {
+    const body = {
         email,
         password
     };
     try {
-        const student = await axios.post(url + 'students/signin', article)
+        const student = await axios.post(url + 'students/signin', body)
         return student.data.data
     } catch (error) {
         console.error(error.response.data.message)

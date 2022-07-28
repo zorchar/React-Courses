@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { deleteCourse, getAbsencesOfDateAndCourse, getCourses } from "../../../api/professorsAPI";
 import { CoursesContext } from "../../../context/CoursesContext";
 import { LoginContext } from "../../../context/LoginContext";
@@ -9,11 +9,12 @@ import CourseInfo from "./CourseInfo";
 import studentsIcon from '../../../assets/icons/students-icon.png';
 import DeleteCourseButton from "./DeleteCourseButton";
 import { ModalContext } from "../../../context/ModalContext";
-import Child from './class/ClassInfo'
+import IconedLink from "../../general/IconedLink";
+import ClassInfoProfessorView from "./class/ClassInfoProfessorView";
 
-const Course = () => {
+const ProfessorViewCourse = () => {
     const { courseName } = useParams()
-    const { coursesDB, setCoursesDB, course, setCourse } = useContext(CoursesContext)
+    const { coursesDB, setCoursesDB, course, setCourse, setClassDate } = useContext(CoursesContext)
     const { loginState } = useContext(LoginContext)
     const { setIsModalShown, setModalComponent } = useContext(ModalContext)
     const navigate = useNavigate()
@@ -47,9 +48,9 @@ const Course = () => {
             return { student: absence.student, reason: reasonsArray[0].reason }
         })
 
-        setModalComponent(<Child absentStudents={classAbsences} classDate={date} />)
+        setClassDate(date)
+        setModalComponent(<ClassInfoProfessorView absentStudents={classAbsences} classDate={date} />)
         setIsModalShown(true)
-
     }
 
     useEffect(() => {
@@ -59,23 +60,16 @@ const Course = () => {
         }
     }, [courseName, coursesDB, setCourse])
 
-
-
     return (course ?
         <div className="width-75-percent">
             <CourseInfo course={course} />
-            <Schedule value={course.schedule} onClickClass={onClickClass} />
-            {loginState.isProfessor &&
-                <div className="flex-between">
-                    <Link className='courses-link' to='students' >
-                        <img src={studentsIcon} alt="none" className="icon-container" />
-                        Students
-                    </Link>
-                    <DeleteCourseButton onClickDeleteCourse={onClickDeleteCourse} />
-                </div>
-            }
+            <Schedule schedule={course.schedule} onClickClass={onClickClass} />
+            <div className="flex-between">
+                <IconedLink to={'students'} icon={studentsIcon} label={'Students'} />
+                <DeleteCourseButton onClickDeleteCourse={onClickDeleteCourse} />
+            </div>
         </div>
         : <Loader />
     )
 }
-export default Course
+export default ProfessorViewCourse

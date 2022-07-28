@@ -4,7 +4,6 @@ import Headline from "./Headline";
 
 const Home = () => {
     const { loginState } = useContext(LoginContext)
-
     return (
         <>
             {!loginState.user && <Headline />}

@@ -1,25 +1,26 @@
 import React, { useContext } from "react";
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { LoginContext } from "../../context/LoginContext";
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = () => {
     const location = useLocation()
     const { loginState } = useContext(LoginContext)
 
     switch (loginState.isProfessor) {
         case true:
             if (!location.pathname.includes('/professors/'))
-                return <Navigate to={'/professors/'} replace />;
-            else
-                return children
+                return <Navigate to={'/professors/home'} replace />;
+            else {
+                return <Outlet />
+            }
         case false:
             if (!location.pathname.includes('/students/'))
-                return <Navigate to={'/students/'} replace />;
+                return <Navigate to={'/students/home'} replace />;
             else
-                return children
+                return <Outlet />
         default:
             if (location.pathname === '/home')
-                return children;
+                return <Outlet />
             else
                 return <Navigate to='/home' replace />;
     }
