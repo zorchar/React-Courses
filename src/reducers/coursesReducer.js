@@ -15,7 +15,7 @@ const coursesReducer = (coursesState, action) => {
         case ACTIONS.SET_LAST_CLICKED_CLASS_DATE:
             return {
                 ...coursesState,
-                lastClickedClassDate: action.payload.date
+                lastClickedClassDate: action.payload.lastClickedClassDate
             }
         default:
             return coursesState

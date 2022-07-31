@@ -1,10 +1,11 @@
 import { useContext } from "react"
+import { setIsModalShown } from "../../actions/modalActions"
 import { ModalContext } from "../../context/ModalContext"
 
 const CloseModalButton = () => {
-    const { setIsModalShown } = useContext(ModalContext)
+    const { modalDispatch } = useContext(ModalContext)
     return (
-        <div className="close-button" onClick={() => setIsModalShown(false)}>
+        <div className="close-button" onClick={() => modalDispatch(setIsModalShown(false))}>
             X
         </div>
     )

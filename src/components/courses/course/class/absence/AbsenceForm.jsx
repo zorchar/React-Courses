@@ -1,4 +1,5 @@
 import React, { useMemo, useEffect, useContext, useState } from "react";
+import { setIsModalShown } from "../../../../../actions/modalActions";
 import { addReasonToAbsence, getReasonFromAbsence } from "../../../../../api/studentAPI";
 import { CoursesContext } from "../../../../../context/CoursesContext";
 import { LoginContext } from "../../../../../context/LoginContext";
@@ -12,7 +13,7 @@ const AbsenceForm = () => {
     const [explanation, setExplanation] = useState(null)
     const { loginState } = useContext(LoginContext)
     const { lastClickedClassDate, currentCourse } = useContext(CoursesContext).coursesState
-    const { setIsModalShown } = useContext(ModalContext)
+    const { modalDispatch } = useContext(ModalContext)
 
     const reason = useMemo(() => ({
         courseId: currentCourse._id,
@@ -29,7 +30,7 @@ const AbsenceForm = () => {
 
             await addReasonToAbsence(reason, loginState.token)
             alert(isAttended ? 'Status: Attended' : 'Reason added to absence')
-            setIsModalShown(false)
+            modalDispatch(setIsModalShown(false))
         } catch (error) {
             alert('Error in onSubmitAbsenceForm' + error)
         }

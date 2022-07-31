@@ -1,18 +1,20 @@
 import { useContext } from "react"
+import { setIsModalShown } from "../../../../actions/modalActions"
 import { ModalContext } from "../../../../context/ModalContext"
 import Backdrop from "./Backdrop"
 
 const Modal = () => {
-    const { modalComponent, isModalShown, setIsModalShown } = useContext(ModalContext)
+    const { modalContent, isModalShown } = useContext(ModalContext).modalState
+    const { modalDispatch } = useContext(ModalContext)
 
     return (
         <>
             {
                 isModalShown
                 &&
-                <Backdrop setIsBackdropShown={setIsModalShown}>
+                <Backdrop setIsBackdropShown={() => modalDispatch(setIsModalShown())}>
                     <div className="modal">
-                        {modalComponent}
+                        {modalContent}
                     </div>
                 </Backdrop>
             }
