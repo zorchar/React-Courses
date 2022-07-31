@@ -11,14 +11,14 @@ const AbsenceForm = () => {
     const [isAttended, setIsAttended] = useState(false)
     const [explanation, setExplanation] = useState(null)
     const { loginState } = useContext(LoginContext)
-    const { classDate, course } = useContext(CoursesContext)
+    const { lastClickedClassDate, currentCourse } = useContext(CoursesContext).coursesState
     const { setIsModalShown } = useContext(ModalContext)
 
     const reason = useMemo(() => ({
-        courseId: course._id,
+        courseId: currentCourse._id,
         studentId: loginState.user._id,
-        classDate: new Date(classDate)
-    }), [course._id, loginState.user._id, classDate])
+        classDate: new Date(lastClickedClassDate)
+    }), [currentCourse._id, loginState.user._id, lastClickedClassDate])
 
     const onSubmitAbsenceForm = async (e) => {
         e.preventDefault()

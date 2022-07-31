@@ -1,19 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import studentIcon from '../../../assets/icons/student-male.png'
+import IconedLink from "../../general/IconedLink";
 
-const StudentsList = ({ students }) => {
+const StudentsList = ({ students, filter }) => {
     return (
         <>
             {students.map((student) => {
-                return (
+                const fullName = student.firstName + " " + student.lastName
+                return fullName.toLowerCase().includes(filter) &&
                     <div key={student._id}>
-                        <Link className='courses-link' to={student._id} >
-                            <img src={studentIcon} alt="none" className="icon-container" />
-                            {student.firstName}  {student.lastName}<br />
-                        </Link>
+                        <IconedLink to={student._id} icon={studentIcon} label={fullName} />
                     </div>
-                )
             })}
         </>
     )

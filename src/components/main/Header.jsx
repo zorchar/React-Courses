@@ -25,27 +25,42 @@ const Header = () => {
     return (
         <div className="header">
             <div className="header__nav">
-                <NavLink
-                    to={homeLink.link}
-                    className={({ isActive }) => "home-nav" + (isActive ? ' header__active-link' : "")}
-                >Home</NavLink>
+                <div>
+                    <NavLink
+                        to={homeLink.link}
+                        className={({ isActive }) => "home-nav" + (isActive ? ' header__active-link' : "")}
+                    >Home
+                    </NavLink>
+                    {loginState.user &&
+                        <NavLink
+                            to={(loginState.isProfessor ? "professors" : "students/me") + "/courses"}
+                            className={({ isActive }) => isActive ? ' header__active-link' : ""}
+                        >Courses
+                        </NavLink>}
+                    {loginState.isProfessor && <NavLink
+                        to={"professors/students"}
+                        className={({ isActive }) => isActive ? ' header__active-link' : ""}
+                    >Students
+                    </NavLink>}
+                </div>
                 <div>
                     {!loginState.user &&
                         <NavLink to="/login" className={({ isActive }) => isActive ? ' header__active-link' : ""}>Login</NavLink>
                     }
                     {loginState.user &&
-                        [
+                        <>
                             <NavLink
-                                key={1}
                                 to={(loginState.isProfessor ? "professors" : "students") + "/me"}
+                                end
                                 className={({ isActive }) => isActive ? ' header__active-link' : ""}
-                            >{loginState.user.email}</NavLink>,
+                            >{loginState.user.email}
+                            </NavLink>
                             <NavLink
-                                key={2}
                                 to="/home"
                                 onClick={onLogoutClick}>
-                                Logout</NavLink>
-                        ]
+                                Logout
+                            </NavLink>
+                        </>
                     }
                 </div>
             </div>

@@ -1,7 +1,6 @@
 import axios from 'axios'
 
-const url = 'http://localhost:4000/'
-
+const url = process.env.REACT_APP_API_URL
 
 export const createStudent = async (newStudent, token) => {
     const headers = {
@@ -57,7 +56,7 @@ export const signInProfessor = async (email, password) => {
         const professor = await axios.post(url + 'professors/signin', body)
         return professor.data.data
     } catch (error) {
-        console.error(error.response.data.message)
+        alert('Unable to login.')
     }
 }
 

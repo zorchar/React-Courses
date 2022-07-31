@@ -5,7 +5,7 @@ import { getStudents } from "../../../api/professorsAPI";
 import Loader from "../../general/Loader";
 import StudentsList from "./StudentsList";
 
-const StudentsListFetcher = () => {
+const StudentsListFetcher = ({ filter }) => {
     const [students, setStudents] = useState(null)
 
     useEffect(() => {
@@ -16,7 +16,7 @@ const StudentsListFetcher = () => {
         fetchData().catch(console.error)
     }, [])
 
-    return students ? <StudentsList students={students} /> : <Loader />
+    return students ? <StudentsList filter={filter} students={students} /> : <Loader />
 }
 
 export default StudentsListFetcher

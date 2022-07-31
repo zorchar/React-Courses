@@ -1,8 +1,6 @@
 import axios from "axios"
 
-
-
-
+//// Guy's example
 export const requestWithToken = async ({
     token, method, api, route, data, params, signal
 }) => {
@@ -21,8 +19,15 @@ export const requestWithToken = async ({
     } catch (err) {
         throw err
     }
-
 }
 
+const url = process.env.REACT_APP_API_URL
 
-
+export const getCourse = async (courseName) => {
+    try {
+        const course = await axios.get(url + 'courses/' + courseName)
+        return course.data.data
+    } catch (err) {
+        console.error(err.response.data.message)
+    }
+}
