@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { deleteCourse, getAbsencesOfDateAndCourse, getCourses } from "../../../api/professorsAPI";
+import { deleteCourse, getAbsencesOfDateAndCourse, getAllCourses } from "../../../api/professorsAPI";
 import { CoursesContext } from "../../../context/CoursesContext";
 import { LoginContext } from "../../../context/LoginContext";
 import Schedule from "./Schedule";
@@ -16,7 +16,7 @@ import { setCourses, setCurrentCourse, setLastClickedClassDate } from "../../../
 import { setIsModalShown, setModalContent } from "../../../actions/modalActions";
 
 const ProfessorViewCourse = () => {
-    const { courseName } = useParams()
+    const { courseId } = useParams()
     const { coursesDispatch } = useContext(CoursesContext)
     const { currentCourse: course } = useContext(CoursesContext).coursesState
     const { loginState } = useContext(LoginContext)
@@ -25,10 +25,10 @@ const ProfessorViewCourse = () => {
 
     const onClickDeleteCourse = async () => {
         try {
-            const data = await deleteCourse(courseName, loginState.token)
+            const data = await deleteCourse(courseId, loginState.token)
             const acknowledged = data.acknowledged
             if (acknowledged) {
-                const coursesFromDB = await getCourses()
+                const coursesFromDB = await getAllCourses()
                 coursesDispatch(setCourses(coursesFromDB))
                 navigate('/professors/courses')
             }
@@ -58,14 +58,14 @@ const ProfessorViewCourse = () => {
 
     useEffect(() => {
         const getAndSetCourse = async () => {
-            const requestedCourse = await getCourse(courseName)
+            const requestedCourse = await getCourse(courseId)
             coursesDispatch(setCurrentCourse(requestedCourse))
         }
         getAndSetCourse()
             .catch((err) => console.log(err))
-    }, [courseName, coursesDispatch])
+    }, [courseId, coursesDispatch])
 
-    return (course?.name === courseName ?
+    return (course?._id === courseId ?
         <div className="width-75-percent">
             <CourseInfo course={course} />
             <Schedule schedule={course.schedule} onClickClass={onClickClass} />

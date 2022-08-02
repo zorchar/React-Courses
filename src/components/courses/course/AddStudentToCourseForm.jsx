@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { getCourses, registerForCourse } from "../../../api/professorsAPI";
+import { getAllCourses, registerForCourse } from "../../../api/professorsAPI";
 import { CoursesContext } from "../../../context/CoursesContext";
 import { LoginContext } from "../../../context/LoginContext";
 import addStudentIcon from '../../../assets/icons/add-student.png'
@@ -13,9 +13,8 @@ const AddStudentToCourseForm = ({ course }) => {
         e.preventDefault()
         try {
             const id = e.target[0].value.trim()
-
             await registerForCourse(course._id, id, loginState.token)
-            const coursesFromDB = await getCourses()
+            const coursesFromDB = await getAllCourses()
             coursesDispatch(setCourses(coursesFromDB))
             e.target[0].value = ''
         } catch {

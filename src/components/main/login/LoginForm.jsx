@@ -2,9 +2,9 @@ import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginAction } from "../../../actions/loginActions";
 import { LoginContext } from "../../../context/LoginContext";
-import { signInProfessor } from '../../../api/professorsAPI'
+import { loginProfessor } from '../../../api/professorsAPI'
 import SubmitButton from "../../general/SubmitButton";
-import { signInStudent } from "../../../api/studentAPI";
+import { loginStudent } from "../../../api/studentAPI";
 import LabelAndInputInfo from "../../users/edit/LabelAndInputInfo";
 import { useState } from "react";
 
@@ -30,9 +30,9 @@ const LoginForm = () => {
         let data
 
         if (isLoginAsProfessor)
-            data = await signInProfessor(email, password)
+            data = await loginProfessor(email, password)
         else
-            data = await signInStudent(email, password)
+            data = await loginStudent(email, password)
 
         if (data) {
             localStorage.setItem('token', data.token)

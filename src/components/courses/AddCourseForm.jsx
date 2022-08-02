@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { createCourse, getCourses } from "../../api/professorsAPI";
+import { createCourse, getAllCourses } from "../../api/professorsAPI";
 import { LoginContext } from "../../context/LoginContext";
 import FormInputWithLabel from "../general/FormInputWithLabel";
 import TableDatePicker from "../general/TableDatePicker";
@@ -27,9 +27,9 @@ const AddCourseForm = () => {
                 },
                 loginState.token)
 
-            const coursesFromDB = await getCourses()
+            const coursesFromDB = await getAllCourses()
             coursesDispatch(setCourses(coursesFromDB))
-            navigate('/professors/courses/' + newCourse.name)
+            navigate('/professors/courses/' + newCourse._id)
             return newCourse // maybe remove
         } catch (error) {
             alert(error)

@@ -11,7 +11,7 @@ const StudentViewCourses = () => {
     const [studentCourses, setStudentCourses] = useState([])
 
     useEffect(() => {
-        if (courses) {
+        if (courses !== 'pending') {
             const studentId = loginState.user._id
             const filteredCourses = courses.filter(course => course.students.includes(studentId))
             setStudentCourses(filteredCourses)
@@ -21,7 +21,7 @@ const StudentViewCourses = () => {
     return ((courses && studentCourses) ?
         <div className="home-links">
             {studentCourses.map((course) =>
-                <IconedLink key={course._id} to={course.name} icon={coursesIcon} />
+                <IconedLink key={course._id} to={course._id} label={course.name} icon={coursesIcon} />
             )}
             {studentCourses.length === 0 && <h1 className="flex-center">You are not registered to any course.</h1>}
         </div>

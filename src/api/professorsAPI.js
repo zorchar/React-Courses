@@ -7,7 +7,7 @@ export const createStudent = async (newStudent, token) => {
         'Authorization': 'Bearer ' + token,
     };
     try {
-        const student = await axios.post(url + 'students/create', newStudent, { headers })
+        const student = await axios.post(url + 'students/new', newStudent, { headers })
         return student.data.data
     } catch (error) {
         alert(error.response.data.message)
@@ -47,13 +47,13 @@ export const getStudent = async (studentId, token) => {
     }
 }
 
-export const signInProfessor = async (email, password) => {
+export const loginProfessor = async (email, password) => {
     const body = {
         email,
         password
     };
     try {
-        const professor = await axios.post(url + 'professors/signin', body)
+        const professor = await axios.post(url + 'professors/login', body)
         return professor.data.data
     } catch (error) {
         alert('Unable to login.')
@@ -78,26 +78,26 @@ export const createCourse = async (body, token) => {
         'Authorization': 'Bearer ' + token,
     };
     try {
-        const course = await axios.post(url + 'courses/create', body, { headers })
+        const course = await axios.post(url + 'courses/new', body, { headers })
         return course.data.data
     } catch (error) {
         alert(error.response.data.message)
     }
 }
 
-export const deleteCourse = async (courseName, token) => {
+export const deleteCourse = async (courseId, token) => {
     const headers = {
         'Authorization': 'Bearer ' + token,
     };
     try {
-        const deletedCount = await axios.delete(url + 'courses/' + courseName, { headers })
+        const deletedCount = await axios.delete(url + 'courses/' + courseId, { headers })
         return deletedCount.data.data
     } catch (error) {
         alert(error.response.data.message)
     }
 }
 
-export const getCourses = async () => {
+export const getAllCourses = async () => {
     try {
         const response = await axios.get(url + 'courses')
         return response.data.data
@@ -111,63 +111,29 @@ export const registerForCourse = async (courseId, studentId, token) => {
         'Authorization': 'Bearer ' + token,
     };
     const article = {
-        courseId,
         studentId
     };
     try {
-        const response = await axios.patch(url + 'students/register', article, { headers })
+        const routeUrl = `${url}courses/${courseId}/register`
+        const response = await axios.patch(routeUrl, article, { headers })
         return response.data.data
     } catch (error) {
         alert(error.response.data.message)
     }
 }
-
-export const createAbsence = async (courseId, studentId, token) => {
-    const headers = {
-        'Authorization': 'Bearer ' + token,
-    };
-    const article = {
-        courseId,
-        studentId
-    };
-    try {
-        const response = await axios.post(url + 'absences/create', article, { headers })
-        return response.data.data
-    } catch (error) {
-        alert(error.response.data.message)
-    }
-}
-
 export const removeFromCourse = async (courseId, studentId, token) => {
     const headers = {
         'Authorization': 'Bearer ' + token,
     };
     const article = {
-        courseId,
         studentId
     };
     try {
-        const response = await axios.patch(url + 'students/unregister', article, { headers })
+        const routeUrl = `${url}courses/${courseId}/unregister`
+        const response = await axios.patch(routeUrl, article, { headers })
         return response.data.data
     } catch (error) {
         alert(error.response.data.message)
-    }
-}
-
-export const deleteAbsence = async (courseId, studentId, token) => {
-    try {
-        const deletedCount = await axios.delete(url + 'absences/delete', {
-            headers: {
-                'Authorization': 'Bearer ' + token,
-            },
-            data: {
-                courseId,
-                studentId
-            }
-        })
-        return deletedCount.data.data
-    } catch (error) {
-        throw (error.response.data.message)
     }
 }
 

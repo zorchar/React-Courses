@@ -11,7 +11,7 @@ import { setCurrentCourse, setLastClickedClassDate } from "../../../actions/cour
 import { setIsModalShown, setModalContent } from "../../../actions/modalActions";
 
 const StudentViewCourse = () => {
-    const { courseName } = useParams()
+    const { courseId } = useParams()
     const { coursesDispatch } = useContext(CoursesContext)
     const { currentCourse: course } = useContext(CoursesContext).coursesState
     const { modalDispatch } = useContext(ModalContext)
@@ -25,14 +25,14 @@ const StudentViewCourse = () => {
 
     useEffect(() => {
         const getAndSetCourse = async () => {
-            const requestedCourse = await getCourse(courseName)
+            const requestedCourse = await getCourse(courseId)
             coursesDispatch(setCurrentCourse(requestedCourse))
         }
         getAndSetCourse()
             .catch((err) => console.log(err))
-    }, [courseName, coursesDispatch])
+    }, [courseId, coursesDispatch])
 
-    return (course?.name === courseName ?
+    return (course?._id === courseId ?
         <div className="width-75-percent">
             <CourseInfo course={course} />
             <Schedule schedule={course.schedule} onClickClass={onClickClass} />

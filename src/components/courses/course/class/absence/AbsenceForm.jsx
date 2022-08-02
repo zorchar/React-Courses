@@ -11,6 +11,7 @@ import YesNoRadio from "./YesNoRadio";
 const AbsenceForm = () => {
     const [isAttended, setIsAttended] = useState(false)
     const [explanation, setExplanation] = useState(null)
+    const [absenceId, setAbsenceId] = useState(null)
     const { loginState } = useContext(LoginContext)
     const { lastClickedClassDate, currentCourse } = useContext(CoursesContext).coursesState
     const { modalDispatch } = useContext(ModalContext)
@@ -23,14 +24,15 @@ const AbsenceForm = () => {
 
     const onSubmitAbsenceForm = async (e) => {
         e.preventDefault()
-
         try {
             reason.reason = e.target[2].value.trim()
             reason.isAttended = isAttended
 
-            await addReasonToAbsence(reason, loginState.token)
-            alert(isAttended ? 'Status: Attended' : 'Reason added to absence')
+            await addReasonToAbsence(absenceId, reason, loginState.token)
+
             modalDispatch(setIsModalShown(false))
+
+            alert(isAttended ? 'Status: Attended' : 'Reason added to absence')
         } catch (error) {
             alert('Error in onSubmitAbsenceForm' + error)
         }
@@ -42,6 +44,7 @@ const AbsenceForm = () => {
             const absenceStatus = await getReasonFromAbsence(reason, loginState.token)
             setExplanation(absenceStatus.reason)
             setIsAttended(absenceStatus.isAttended)
+            setAbsenceId(absenceStatus.id)
         }
         getExplanation()
             .catch(console.error)

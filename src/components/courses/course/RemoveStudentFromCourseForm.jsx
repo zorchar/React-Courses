@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { getCourses, removeFromCourse } from "../../../api/professorsAPI";
+import { getAllCourses, removeFromCourse } from "../../../api/professorsAPI";
 import { CoursesContext } from "../../../context/CoursesContext";
 import { LoginContext } from "../../../context/LoginContext";
 import deleteStudentIcon from '../../../assets/icons/delete-student.png'
@@ -14,7 +14,7 @@ const RemoveStudentFromCourseForm = ({ course }) => {
         try {
             const id = e.target[0].value.trim()
             await removeFromCourse(course._id, id, loginState.token)
-            const coursesFromDB = await getCourses()
+            const coursesFromDB = await getAllCourses()
             coursesDispatch(setCourses(coursesFromDB))
             e.target[0].value = ''
         } catch (error) {

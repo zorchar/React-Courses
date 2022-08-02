@@ -11,7 +11,7 @@ const ProfessorViewCourses = () => {
     return ((courses !== 'pending') ?
         <div className="home-links">
             {courses.map((course) =>
-                <IconedLink key={course._id} to={course.name} icon={coursesIcon} />
+                <IconedLink key={course._id} to={course._id} label={course.name} icon={coursesIcon} />
             )}
             <IconedLink to={'add-course'} icon={addCourseIcon} label={'Add Course'} />
         </div>

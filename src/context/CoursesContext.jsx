@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { setCourses } from "../actions/coursesActions";
-import { getCourses } from "../api/professorsAPI";
+import { getAllCourses } from "../api/professorsAPI";
 import coursesReducer from "../reducers/coursesReducer";
 import { LoginContext } from "./LoginContext";
 
@@ -20,7 +20,7 @@ const CoursesContextProvider = ({ children }) => {
     useEffect(() => {
         const asyncData = async () => {
             if (loginState.user) {
-                const coursesFromDB = await getCourses()
+                const coursesFromDB = await getAllCourses()
                 coursesDispatch(setCourses(coursesFromDB))
             }
         }

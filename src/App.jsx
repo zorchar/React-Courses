@@ -51,8 +51,8 @@ function App() {
                   <Route path='courses'>
                     <Route path="" element={<ProfessorViewCourses />} />
                     <Route path="add-course" element={< AddCoursePage />} />
-                    <Route path=":courseName" element={<ProfessorViewCourse />} />
-                    <Route path=":courseName/students" element={<CourseStudents />} />
+                    <Route path=":courseId" element={<ProfessorViewCourse />} />
+                    <Route path=":courseId/students" element={<CourseStudents />} />
                   </Route>
                 </Route>
 
@@ -60,7 +60,7 @@ function App() {
                   <Route path="home" element={<StudentHome />} />
                   <Route path="me" element={<MyInformation />} />
                   <Route path="me/courses" element={<StudentViewCourses />} />
-                  <Route path="me/courses/:courseName" element={<StudentViewCourse />} />
+                  <Route path="me/courses/:courseId" element={<StudentViewCourse />} />
                 </Route>
 
               </Route>
