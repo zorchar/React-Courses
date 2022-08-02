@@ -30,7 +30,6 @@ const AddCourseForm = () => {
             const coursesFromDB = await getAllCourses()
             coursesDispatch(setCourses(coursesFromDB))
             navigate('/professors/courses/' + newCourse._id)
-            return newCourse // maybe remove
         } catch (error) {
             alert(error)
         }

@@ -1,13 +1,17 @@
 export const ACTIONS = {
-    SET_IS_MODEL_SHOWN: 'SET_IS_MODEL_SHOWN',
-    SET_MODAL_CONTENT: 'SET_MODAL_CONTENT',
+    SHOW_MODAL_AND_SET_CONTENT: 'SHOW_MODAL_AND_SET_CONTENT',
+    HIDE_MODAL: 'HIDE_MODAL'
 }
 
-export const setIsModalShown = (isModalShown) => ({
-    type: ACTIONS.SET_IS_MODEL_SHOWN,
-    payload: { isModalShown }
+export const hideModal = () => ({
+    type: ACTIONS.HIDE_MODAL,
+    payload: { isModalShown: false }
 })
-export const setModalContent = (modalContent) => ({
-    type: ACTIONS.SET_MODAL_CONTENT,
-    payload: { modalContent }
+
+export const showModalAndSetContent = (modalContent) => ({
+    type: ACTIONS.SHOW_MODAL_AND_SET_CONTENT,
+    payload: {
+        isModalShown: true,
+        modalContent
+    }
 })

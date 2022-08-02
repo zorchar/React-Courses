@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { hideModal } from "../../../../actions/modalActions";
+import { ModalContext } from "../../../../context/ModalContext";
 
-const Backdrop = ({ setIsBackdropShown, children }) => {
+const Backdrop = ({ children }) => {
+    const { modalDispatch } = useContext(ModalContext)
+
     const onClickContainer = (e) => {
         if (e.target === e.currentTarget) {
-            setIsBackdropShown(false)
+            modalDispatch(hideModal())
         }
     }
     return (

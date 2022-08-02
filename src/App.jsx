@@ -31,7 +31,6 @@ function App() {
             <Header />
 
             <Routes>
-              <Route path="/*" element={<PageNotFound />} />
               <Route path="login" element={<LoginForm />} />
 
               <Route path="" element={<ProtectedRoute replace />} >
@@ -62,8 +61,8 @@ function App() {
                   <Route path="me/courses" element={<StudentViewCourses />} />
                   <Route path="me/courses/:courseId" element={<StudentViewCourse />} />
                 </Route>
-
               </Route>
+              <Route path="*" element={<PageNotFound />} />
             </Routes>
 
             <Modal />

@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useContext, useState } from "react";
-import { setIsModalShown } from "../../../../../actions/modalActions";
+import { hideModal } from "../../../../../actions/modalActions";
 import { addReasonToAbsence, getReasonFromAbsence } from "../../../../../api/studentAPI";
 import { CoursesContext } from "../../../../../context/CoursesContext";
 import { LoginContext } from "../../../../../context/LoginContext";
@@ -30,7 +30,7 @@ const AbsenceForm = () => {
 
             await addReasonToAbsence(absenceId, reason, loginState.token)
 
-            modalDispatch(setIsModalShown(false))
+            modalDispatch(hideModal())
 
             alert(isAttended ? 'Status: Attended' : 'Reason added to absence')
         } catch (error) {
@@ -41,13 +41,16 @@ const AbsenceForm = () => {
 
     useEffect(() => {
         const getExplanation = async () => {
-            const absenceStatus = await getReasonFromAbsence(reason, loginState.token)
-            setExplanation(absenceStatus.reason)
-            setIsAttended(absenceStatus.isAttended)
-            setAbsenceId(absenceStatus.id)
+            try {
+                const absenceStatus = await getReasonFromAbsence(reason, loginState.token)
+                setExplanation(absenceStatus.reason)
+                setIsAttended(absenceStatus.isAttended)
+                setAbsenceId(absenceStatus.id)
+            } catch (error) {
+                console.log(error);
+            }
         }
         getExplanation()
-            .catch(console.error)
     }, [reason, loginState.token])
 
     return (

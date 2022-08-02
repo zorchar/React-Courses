@@ -19,12 +19,12 @@ const CoursesContextProvider = ({ children }) => {
 
     useEffect(() => {
         const asyncData = async () => {
-            if (loginState.user) {
-                const coursesFromDB = await getAllCourses()
-                coursesDispatch(setCourses(coursesFromDB))
-            }
+            const coursesFromDB = await getAllCourses()
+            coursesDispatch(setCourses(coursesFromDB))
         }
-        asyncData()
+
+        if (loginState.user)
+            asyncData()
     }, [loginState])
 
     return (

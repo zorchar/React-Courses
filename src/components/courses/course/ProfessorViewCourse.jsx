@@ -11,9 +11,9 @@ import DeleteCourseButton from "./DeleteCourseButton";
 import { ModalContext } from "../../../context/ModalContext";
 import IconedLink from "../../general/IconedLink";
 import ClassInfoProfessorView from "./class/ClassInfoProfessorView";
-import { getCourse } from "../../../api/API";
-import { setCourses, setCurrentCourse, setLastClickedClassDate } from "../../../actions/coursesActions";
-import { setIsModalShown, setModalContent } from "../../../actions/modalActions";
+import { getAndSetCourse } from "../../../api/allUsersAPI";
+import { setCourses, setLastClickedClassDate } from "../../../actions/coursesActions";
+import { showModalAndSetContent } from "../../../actions/modalActions";
 
 const ProfessorViewCourse = () => {
     const { courseId } = useParams()
@@ -39,30 +39,31 @@ const ProfessorViewCourse = () => {
     }
 
     const onClickClass = async (date) => {
-        const absences = await getAbsencesOfDateAndCourse(
-            {
-                courseId: course._id,
-                classDate: date
-            },
-            loginState.token
-        )
+        try {
 
-        const classAbsences = absences.map((absence) => {
-            const reasonsArray = absence.reasons.filter((el) => el.classDate === date)
-            return { student: absence.student, reason: reasonsArray[0].reason }
-        })
-        coursesDispatch(setLastClickedClassDate(date))
-        modalDispatch(setModalContent(<ClassInfoProfessorView absentStudents={classAbsences} classDate={date} />))
-        modalDispatch(setIsModalShown(true))
+            const absences = await getAbsencesOfDateAndCourse(
+                {
+                    courseId: course._id,
+                    classDate: date
+                },
+                loginState.token
+            )
+
+            const classAbsences = absences.map((absence) => {
+                const reasonsArray = absence.reasons.filter((el) => el.classDate === date)
+                return { student: absence.student, reason: reasonsArray[0].reason }
+            })
+
+            coursesDispatch(setLastClickedClassDate(date))
+            modalDispatch(showModalAndSetContent(<ClassInfoProfessorView absentStudents={classAbsences} classDate={date} />))
+
+        } catch (error) {
+            console.log('error on onClickClass: ' + error)
+        }
     }
 
     useEffect(() => {
-        const getAndSetCourse = async () => {
-            const requestedCourse = await getCourse(courseId)
-            coursesDispatch(setCurrentCourse(requestedCourse))
-        }
-        getAndSetCourse()
-            .catch((err) => console.log(err))
+        getAndSetCourse(courseId, coursesDispatch)
     }, [courseId, coursesDispatch])
 
     return (course?._id === courseId ?

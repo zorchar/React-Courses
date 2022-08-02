@@ -34,22 +34,27 @@ const UserInformation = () => {
 
     const onSubmitEdit = async (e) => {
         e.preventDefault()
+        try {
 
-        const patchFunc = loginState.isProfessor ? patchProfessor : patchStudent
-        const form = new FormData(e.target)
+            const patchFunc = loginState.isProfessor ? patchProfessor : patchStudent
+            const form = new FormData(e.target)
 
-        const patchedUser = await patchFunc(
-            {
-                userId: loginState.user._id,
-                ...Object.fromEntries(form)
-            },
-            loginState.token)
+            const patchedUser = await patchFunc(
+                {
+                    userId: loginState.user._id,
+                    ...Object.fromEntries(form)
+                },
+                loginState.token)
 
-        if (patchedUser) {
-            loginDispatch(loginAction({ user: patchedUser, isProfessor: loginState.isProfessor, token: loginState.token }))
+            if (patchedUser) {
+                loginDispatch(loginAction({ user: patchedUser, isProfessor: loginState.isProfessor, token: loginState.token }))
+            }
+
+            setIsInputDisabledAttribute(true)
+
+        } catch (error) {
+            console.log(error);
         }
-
-        setIsInputDisabledAttribute(true)
     }
 
     const onClickToggleDisabledAttribute = () => {
@@ -57,10 +62,15 @@ const UserInformation = () => {
     }
 
     const onClickDeleteStudent = async () => {
-        const data = await deleteStudent(studentId, loginState.token)
-        const acknowledged = data.acknowledged
-        if (acknowledged)
-            navigate('/professors/students')
+        try {
+            const data = await deleteStudent(studentId, loginState.token)
+
+            if (data.acknowledged)
+                navigate('/professors/students')
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (

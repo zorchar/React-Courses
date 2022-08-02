@@ -1,4 +1,4 @@
-export const initialLoginState = { user: 'pending', isProfessor: 'pending' }
+export const initialLoginState = { user: 'pending', isProfessor: 'pending', token: 'pending' }
 
 export const loginReducer = (loginState, action) => {
     const newLoginState = {
@@ -6,16 +6,20 @@ export const loginReducer = (loginState, action) => {
     }
     switch (action.type) {
         case 'LOGIN':
-            newLoginState.user = action.user
-            newLoginState.isProfessor = action.isProfessor
-            newLoginState.token = action.token
+            for (let key in action) {
+                if (key !== 'type')
+                    newLoginState[key] = action[key]
+            }
             localStorage.setItem('loginState', JSON.stringify(newLoginState))
+
             return newLoginState
         case 'LOGOUT':
             newLoginState.user = null
             newLoginState.isProfessor = null
             newLoginState.token = null
+
             localStorage.removeItem('loginState')
+
             return newLoginState
         default:
             return loginState

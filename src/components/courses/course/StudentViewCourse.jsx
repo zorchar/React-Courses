@@ -6,9 +6,9 @@ import Loader from '../../general/Loader'
 import CourseInfo from "./CourseInfo";
 import { ModalContext } from "../../../context/ModalContext";
 import ClassInfoStudentView from "./class/ClassInfoStudentView";
-import { getCourse } from "../../../api/API";
-import { setCurrentCourse, setLastClickedClassDate } from "../../../actions/coursesActions";
-import { setIsModalShown, setModalContent } from "../../../actions/modalActions";
+import { getAndSetCourse } from "../../../api/allUsersAPI";
+import { setLastClickedClassDate } from "../../../actions/coursesActions";
+import { showModalAndSetContent } from "../../../actions/modalActions";
 
 const StudentViewCourse = () => {
     const { courseId } = useParams()
@@ -19,17 +19,11 @@ const StudentViewCourse = () => {
 
     const onClickClass = async (date) => {
         coursesDispatch(setLastClickedClassDate(date))
-        modalDispatch(setModalContent(<ClassInfoStudentView classDate={date} />))
-        modalDispatch(setIsModalShown(true))
+        modalDispatch(showModalAndSetContent(<ClassInfoStudentView classDate={date} />))
     }
 
     useEffect(() => {
-        const getAndSetCourse = async () => {
-            const requestedCourse = await getCourse(courseId)
-            coursesDispatch(setCurrentCourse(requestedCourse))
-        }
-        getAndSetCourse()
-            .catch((err) => console.log(err))
+        getAndSetCourse(courseId, coursesDispatch)
     }, [courseId, coursesDispatch])
 
     return (course?._id === courseId ?

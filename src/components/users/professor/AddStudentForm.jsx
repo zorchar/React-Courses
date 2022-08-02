@@ -11,19 +11,24 @@ const AddStudentForm = () => {
 
     const onSubmitAddStudent = async (e) => {
         e.preventDefault()
+        try {
 
-        const newStudent = {
-            firstName: e.target[0].value.trim(),
-            lastName: e.target[1].value.trim(),
-            age: e.target[2].value.trim(),
-            email: e.target[3].value.trim(),
-            address: e.target[4].value.trim(),
-            password: e.target[5].value.trim()
+            const newStudent = {
+                firstName: e.target[0].value.trim(),
+                lastName: e.target[1].value.trim(),
+                age: e.target[2].value.trim(),
+                email: e.target[3].value.trim(),
+                address: e.target[4].value.trim(),
+                password: e.target[5].value.trim()
+            }
+
+            const createdStudent = await createStudent(newStudent, loginState.token)
+            if (createdStudent)
+                navigate('/professors/students')
+
+        } catch (error) {
+            console.log(error);
         }
-
-        const createdStudent = await createStudent(newStudent, loginState.token)
-        if (createdStudent)
-            navigate('/professors/students')
     }
 
     return (

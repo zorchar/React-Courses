@@ -11,6 +11,7 @@ const RemoveStudentFromCourseForm = ({ course }) => {
 
     const onSubmitRemoveStudentFromCourse = async (e) => {
         e.preventDefault()
+
         try {
             const id = e.target[0].value.trim()
             await removeFromCourse(course._id, id, loginState.token)
